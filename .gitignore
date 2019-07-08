@@ -1,0 +1,9 @@
+_pycache_/*
+include/*
+lib/*
+bin/*
+share/*
+lib64
+pyvenv.cfg
+.vscode/*
+pip-selfcheck.json
