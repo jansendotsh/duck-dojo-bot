@@ -7,3 +7,5 @@ lib64
 pyvenv.cfg
 .vscode/*
 pip-selfcheck.json
+vars/private.py
+vars/__pycache__/*
