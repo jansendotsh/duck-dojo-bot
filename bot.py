@@ -29,7 +29,7 @@ def roll(bot, update):
 
 def chiweeners(bot, update):
     d20 = random.randint(1,20)
-    if d20 < 2:
+    if d20 < 5:
         d20 = random.randint(1,20)
         if d20 == 20:
             url = 'http://scuttle.nithingpole.com/rand_legend.png'
@@ -45,7 +45,7 @@ def main():
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('boop',boop))
     dp.add_handler(CommandHandler('roll',roll))
-    dp.add_handler(CommandHandler('chiweeners',roll))
+    dp.add_handler(CommandHandler('chiweeners',chiweeners))
     updater.start_polling()
     updater.idle()
 
