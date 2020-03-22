@@ -23,7 +23,7 @@ def boop(bot, update):
     bot.send_photo(chat_id=chat_id, photo=url)
 
 def roll(bot, update):
-    rollurl = 'https://dojo.burning.cloud/roll/' + random.randint(1,2) + ".jpg"
+    rollurl = 'https://dojo.burning.cloud/roll/' + random.randint(1,11) + ".jpg"
     chat_id = update.message.chat_id
     bot.send_photo(chat_id=chat_id, photo=rollurl)
 
