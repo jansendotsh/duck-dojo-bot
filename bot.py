@@ -27,11 +27,25 @@ def roll(bot, update):
     chat_id = update.message.chat_id
     bot.send_photo(chat_id=chat_id, photo=rollurl)
 
+def chiweeners(bot, update):
+    d20 = random.randint(1,20)
+    if d20 < 2:
+        d20 = random.randint(1,20)
+        if d20 == 20:
+            url = 'http://scuttle.nithingpole.com/rand_legend.png'
+        else:
+            url = f'http://scuttle.nithingpole.com/rand{random.randint(1,5)}.png'
+    else:
+        url = f'http://scuttle.nithingpole.com/doge{random.randint(1,44)}.png'
+    chat_id = update.message.chat_id
+    bot.send_photo(chat_id=chat_id, photo=url)
+
 def main():
     updater = Updater(telegram_api)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('boop',boop))
     dp.add_handler(CommandHandler('roll',roll))
+    dp.add_handler(CommandHandler('chiweeners',roll))
     updater.start_polling()
     updater.idle()
 
