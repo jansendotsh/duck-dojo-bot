@@ -40,12 +40,21 @@ def chiweeners(bot, update):
     chat_id = update.message.chat_id
     bot.send_photo(chat_id=chat_id, photo=url)
 
+def lucky_hit(bot, update):
+    url = "http://scuttle.nithingpole.com/RYO.txt"
+    ryo_quotes = requests.get(url).content.decode().split("\n")
+    random.shuffle(ryo_quotes)
+    ryo_quote = random.choice(ryo_quotes)
+    chat_id = update.message.chat_id
+    bot.send_message(chat_id=chat_id, text=ryo_quote)
+
 def main():
     updater = Updater(telegram_api)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('boop',boop))
     dp.add_handler(CommandHandler('roll',roll))
     dp.add_handler(CommandHandler('chiweeners',chiweeners))
+    dp.add_handler(CommandHandler('lucky_hit',lucky_hit))
     updater.start_polling()
     updater.idle()
 
