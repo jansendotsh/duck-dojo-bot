@@ -3,6 +3,8 @@ import logging
 import os
 import random
 import requests
+import json
+from datetime import datetime
 
 def roll(update, context):
     url = f'https://dojo.burning.cloud/roll/{random.randint(1,11)}.jpg'
@@ -27,6 +29,18 @@ def lucky_hit(update, context):
     ryo_quote = random.choice(ryo_quotes)
     context.bot.send_message(chat_id=update.effective_chat.id, text=ryo_quote)
 
+def on_this_day_bot(update, context):
+    today = datetime.now()
+    month, day = today.month, today.day
+    url = f"https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/{month}/{day}"
+    request = requests.get(url).content
+    request = json.loads(request)
+    i = random.randint(0, len(request['selected'])-1)
+    result, result_year = request['selected'][i]['text'], request['selected'][i]['year']
+    result_source = request['selected'][i]['pages'][0]['content_urls']['desktop']['page']
+    result = str(result_year) + ": " + result + f'\nsource: {result_source}'
+    context.bot.send_message(chat_id=update.effective_chat.id, text=result)
+
 def main():
     telegram_api = os.environ['TELEGRAM_TOKEN']
     updater = Updater(token=telegram_api, use_context=True)
@@ -35,6 +49,7 @@ def main():
     dp.add_handler(CommandHandler('roll',roll))
     dp.add_handler(CommandHandler('chiweeners',chiweeners))
     dp.add_handler(CommandHandler('lucky_hit',lucky_hit))
+    dp.add_handler(CommandHandler('on_this_day',on_this_day_bot))
     updater.start_polling()
     updater.idle()
 
